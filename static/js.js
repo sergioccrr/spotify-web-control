@@ -13,11 +13,24 @@ window.swc.next = function(song) {
 window.swc.prev = function(song) {
 	return window.swc_.push(song,'prev');
 }
+window.swc.play = function(){
+	return window.swc_.setPlaybackState('playing');
+}
+window.swc.pause = function(){
+	return window.swc_.setPlaybackState('paused');
+}
 
 
 
 
 window.swc_ = {};
+window.swc_.setPlaybackState = function(state) {
+	if(state === 'paused') {
+		$('.player').addClass('is_paused');
+	} else {
+		$('.player').removeClass('is_paused');
+	}
+}
 window.swc_.push = function(song,where) {
 
 	var extraClass = '';
@@ -112,5 +125,7 @@ window.back = function() {
 	}
 
 }
+window.play = window.swc.play;
+window.pause = window.swc.pause;
 
 i = 0;j = 0;
