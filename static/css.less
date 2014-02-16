@@ -10,12 +10,12 @@ html {
 	background: #222;
 	color: white;
 	font-family: "futura-pt";
+	-webkit-perspective: 500px;
 }
 .wrapper {
 	z-index: 9999;
 	margin: 50px auto;
-	width: 400px;
-	padding-left: 100px;
+	width: 300px;
 	height: 100px;
 	overflow: hidden;
 	position: fixed;
@@ -26,6 +26,9 @@ html {
 	right: 0;
 	&.has_nudge {
 		-webkit-animation: nudge 400ms linear 0 1 normal;
+	}
+	@media all and (max-width: 500px) {
+		-webkit-transform: scale(.75);
 	}
 }
 
@@ -117,32 +120,48 @@ button:active {
 	height: 40px;
 	z-index: 9999999999;
 	line-height: 20px;
-}
 
-.indicator h2, .indicator h3, .indicator h4 {
-	font-size: 14px;
-	font-weight: 100;
-	color: #fff;
-	color: rgba(255,255,255,.5);
-	z-index: 9999999999;
-	float: left;
-	text-transform: uppercase;
-	margin-right: 10px;
-	letter-spacing: 4px;
-}
+	@media all and (max-width: 600px) {
+		height: 60px;
+	}
 
-.indicator h2 {
-	font-weight: 600;
-	color: #00DB3A;
-}
 
-.indicator h3 {
-	clear: both;
-}
+	h2, h3 {
+		font-size: 14px;
+		font-weight: 100;
+		color: #fff;
+		color: rgba(255,255,255,.5);
+		z-index: 9999999999;
+		float: left;
+		text-transform: uppercase;
+		margin-right: 10px;
+		letter-spacing: 4px;
+	}
 
-.indicator h3:after {
-	content: '◇';
-	margin-left: 10px;
+	.song {
+		font-weight: 600;
+		color: #00DB3A;
+	}
+
+	.artist {
+		clear: both;
+	}
+
+	.artist:after {
+		content: '◇';
+		margin-left: 10px;
+	}
+
+	.time {
+		@media all and (max-width: 600px) {
+			clear: both;
+		}
+		@media all and (min-width: 600px) {
+			float: right;
+			margin-right: 0;
+		}
+	}
+
 }
 
 
@@ -178,6 +197,7 @@ button:active {
 @-webkit-keyframes fadeIn {
 	0% {
 		-webkit-transform: translateZ(1px) scale(1.2) translateX(200px);
+		opacity: 1;
 	}
 	100% {
 		-webkit-transform: translateZ(1px) scale(1.2) translateX(0);
