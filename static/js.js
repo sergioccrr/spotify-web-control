@@ -8,10 +8,14 @@ window.swc.song = function(song) {
 	return this;
 }
 window.swc.next = function(song) {
-	return window.swc_.push(song,'next');
+	window.swc_.push(song,'next',function(){
+		window.swc.play();
+	});
 }
 window.swc.prev = function(song) {
-	return window.swc_.push(song,'prev');
+	window.swc_.push(song,'prev',function(){
+		window.swc.play();
+	});
 }
 window.swc.play = function(){
 	return window.swc_.setPlaybackState('playing');
@@ -31,7 +35,7 @@ window.swc_.setPlaybackState = function(state) {
 		$('.player').removeClass('is_paused');
 	}
 }
-window.swc_.push = function(song,where) {
+window.swc_.push = function(song,where,callback) {
 
 	var extraClass = '';
 	switch(where) {
@@ -74,6 +78,7 @@ window.swc_.push = function(song,where) {
 		existingCover.remove();
 		existingIndicator.remove();
 		$('.is_in, .to_next, .to_prev').removeClass('is_in to_next to_prev');
+		callback();
 	},350);
 }
 
@@ -107,11 +112,11 @@ window.back = function() {
 	if(j === 0) {
 		j++;
 		return window.swc.prev(new window.swc.song({
-			name: 'Santiago Fdez',
-			artist: 'Santiago Fdez',
+			name: 'Kamionka',
+			artist: 'MKURLV',
 			cover: 'https://yt3.ggpht.com/-YDbigEGhkM8/AAAAAAAAAAI/AAAAAAAAAAA/gBV9VwVmOxc/s900-c-k-no/photo.jpg',
-			duration: 'Santiago Fdez',
-			album: 'Santiago Fdez'
+			duration: '4:20',
+			album: 'Uniform Title'
 		}));
 	} else {
 		j = 0;
