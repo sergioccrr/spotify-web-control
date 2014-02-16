@@ -1,31 +1,116 @@
-window.skip = function() {
-	if (i === 0) {
-		var newcover = $('<div class="cover is_in" style="background-image:url(http://www.playthishiphop.com/wp-content/uploads/2012/10/kanye-west-graduation.jpg)"></div>');
-		var newi = $('<div class="indicator is_in"><h2 class="song">Breaking Free</h2><h3 class="artist">Santiago Lapresta</h3><h3 class="album">Breaking Free</h3><h3 class="time">5:32</h3><div class="progress"><div class="done" style="width:55%"></div></div></div>');
-		i = 1;
-	} else {
-		var newcover = $('<div class="cover is_in"><div class="cover_loading" style="border-color:rgb('+(Math.ceil(Math.random()*100)+150)+','+(Math.ceil(Math.random()*100)+150)+','+(Math.ceil(Math.random()*100)+150)+');"></div></div>');
-		var newi = $('<div class="indicator is_in"><h2 class="song">Fallen Angels</h2><h3 class="artist">Black Veil Brides</h3><h3 class="album">Fallen Angels</h3><h3 class="time">2:44</h3><div class="progress"><div class="done" style="width:55%"></div></div></div>');
-		i = 0;
+window.swc = {};
+window.swc.song = function(song) {
+	this.name = song.name;
+	this.artist = song.artist;
+	this.album = song.album;
+	this.cover = song.cover;
+	this.duration = song.duration;
+	return this;
+}
+window.swc.next = function(song) {
+	return window.swc_.push(song,'next');
+}
+window.swc.prev = function(song) {
+	return window.swc_.push(song,'prev');
+}
+
+
+
+
+window.swc_ = {};
+window.swc_.push = function(song,where) {
+
+	var extraClass = '';
+	switch(where) {
+		case undefined:
+		case 'initial':
+		case 'next':
+			extraClass = ' to_next';
+			break;
+		case 'prev':
+			extraClass = ' to_prev';
+			break;
+		default:
+			throw 'invalid target';
+			break;
 	}
 
-	var cover = $('.cover:first-of-type');
-	var indicator = $('.indicator:first-of-type');
+	var coverToInject = $(
+		'<div class="cover is_in'+extraClass+'" style="background-image:url('+song.cover+')"></div>'
+	);
+	var indicatorToInject = $(
+		'<div class="indicator is_in'+extraClass+'">'+
+			'<h2 class="song">'+song.name+'</h2>'+
+			'<h3 class="artist">'+song.artist+'</h3>'+
+			'<h3 class="album">'+song.album+'</h3>'+
+			'<h3 class="duration">'+song.duration+'</h3>'+
+			'<div class="progress"><div class="done" style="width:55%"></div></div>'+
+		'</div>'
+	);
 
-	cover.before(newcover);
-	indicator.before(newi);
+	var existingCover     = $('.cover:first-of-type');
+	var existingIndicator = $('.indicator:first-of-type');
 
-	cover.addClass('is_fading');
-	indicator.addClass('is_fading');
+	existingCover.before(coverToInject);
+	existingIndicator.before(indicatorToInject);
 
-	$('.wrapper').addClass('has_nudge');
+	existingCover.addClass('is_out'+extraClass);
+	existingIndicator.addClass('is_out'+extraClass);
+
 	setTimeout(function(){
-		$('.cover.is_fading').remove();
-		$('.cover.is_in').removeClass('is_in');
-		$('.indicator.is_fading').remove();
-		$('.indicator.is_in').removeClass('is_in');
-		$('.wrapper').removeClass('has_nudge');
+		existingCover.remove();
+		existingIndicator.remove();
+		$('.is_in, .to_next, .to_prev').removeClass('is_in to_next to_prev');
 	},350);
 }
 
-window.i = 0;
+
+
+window.skip = function() {
+
+	if(i === 0) {
+		i++;
+		return window.swc.next(new window.swc.song({
+			name: 'Santiago Fdez',
+			artist: 'Santiago Fdez',
+			cover: 'https://yt3.ggpht.com/-YDbigEGhkM8/AAAAAAAAAAI/AAAAAAAAAAA/gBV9VwVmOxc/s900-c-k-no/photo.jpg',
+			duration: 'Santiago Fdez',
+			album: 'Santiago Fdez'
+		}));
+	} else {
+		i = 0;
+		return window.swc.next(new window.swc.song({
+			name: '2Santiago Fdez',
+			artist: '2Santiago Fdez',
+			cover: 'http://cdn.mos.musicradar.com/images/legacy/totalguitar/stone_temple_pilots_album_cover_Total_Guitar.JPG',
+			duration: '2Santiago Fdez',
+			album: '2Santiago Fdez'
+		}));
+	}
+
+}
+window.back = function() {
+
+	if(j === 0) {
+		j++;
+		return window.swc.prev(new window.swc.song({
+			name: 'Santiago Fdez',
+			artist: 'Santiago Fdez',
+			cover: 'https://yt3.ggpht.com/-YDbigEGhkM8/AAAAAAAAAAI/AAAAAAAAAAA/gBV9VwVmOxc/s900-c-k-no/photo.jpg',
+			duration: 'Santiago Fdez',
+			album: 'Santiago Fdez'
+		}));
+	} else {
+		j = 0;
+		return window.swc.prev(new window.swc.song({
+			name: '2Santiago Fdez',
+			artist: '2Santiago Fdez',
+			cover: 'http://cdn.mos.musicradar.com/images/legacy/totalguitar/stone_temple_pilots_album_cover_Total_Guitar.JPG',
+			duration: '2Santiago Fdez',
+			album: '2Santiago Fdez'
+		}));
+	}
+
+}
+
+i = 0;j = 0;

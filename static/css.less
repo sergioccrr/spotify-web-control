@@ -126,18 +126,6 @@ button:active {
 	z-index: 1000;
 	line-height: 20px;
 
-	&.is_fading {
-		z-index: 1010;
-		-webkit-animation: fadeIndd 300ms linear 0 1 normal;
-		-webkit-transform-origin: center center;
-		-webkit-transform: translateZ(1px) scale(1.2) translateX(-600px);
-		opacity: 0;
-	}
-	&.is_in {
-		-webkit-animation: fadeInIndd 300ms linear 0 1 normal;
-		-webkit-transform-origin: center center;
-	}
-
 	@media all and (max-width: 600px) {
 		height: 72px;
 	}
@@ -169,7 +157,7 @@ button:active {
 		margin-left: 10px;
 	}
 
-	.time {
+	.duration {
 		@media all and (max-width: 600px) {
 			clear: both;
 		}
@@ -260,47 +248,4 @@ button:active {
 	}
 }
 
-
-
-@-webkit-keyframes fade {
-	0% {
-		-webkit-transform: translateZ(1px) scale(1.2) translateX(0);
-		opacity:1;
-	}
-	100% {
-		-webkit-transform: translateZ(1px) scale(1.2) translateX(-200px);
-		opacity: 0;
-	}
-}
-@-webkit-keyframes fadeIn {
-	0% {
-		-webkit-transform: translateZ(1px) scale(1.2) translateX(200px);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateZ(1px) scale(1.2) translateX(0);
-		opacity: 1
-	}
-}
-
-
-@-webkit-keyframes fadeIndd {
-	0% {
-		-webkit-transform: translateZ(1px) scale(1) translateX(0);
-		opacity:1;
-	}
-	100% {
-		-webkit-transform: translateZ(1px) scale(1) translateX(-200px);
-		opacity: 0;
-	}
-}
-@-webkit-keyframes fadeInIndd {
-	0% {
-		-webkit-transform: translateZ(1px) scale(1) translateX(200px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(1px) scale(1) translateX(0);
-		opacity: 1
-	}
-}
+@import "transition";
