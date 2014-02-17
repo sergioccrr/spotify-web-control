@@ -16,7 +16,7 @@ def homeHandler():
 def previousHandler():
 	spotify.pause()
 	spotify.previous()
-	a = spotify.currentTrack()
+	json = spotify.currentTrack()
 	spotify.play()
 	return json
 
