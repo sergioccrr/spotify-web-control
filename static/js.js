@@ -1,9 +1,13 @@
 window.swc = {};
 window.swc.song = function(song) {
+
+	console.log(song);
+	console.log(song.name);
+
 	this.name = song.name;
 	this.artist = song.artist;
 	this.album = song.album;
-	this.cover = song.cover;
+	this.cover = song.artwork;
 	this.duration = song.duration;
 	return this;
 }
@@ -18,10 +22,14 @@ window.swc.prev = function(song) {
 	});
 }
 window.swc.play = function(){
-	return window.swc_.setPlaybackState('playing');
+	$.ajax('api/play').done(function(data){
+		return window.swc_.setPlaybackState('playing');
+	});
 }
 window.swc.pause = function(){
-	return window.swc_.setPlaybackState('paused');
+	$.ajax('api/pause').done(function(data){
+		return window.swc_.setPlaybackState('paused');
+	});
 }
 
 
@@ -84,50 +92,18 @@ window.swc_.push = function(song,where,callback) {
 
 
 
-window.skip = function() {
+window.next = function() {
 
-	if(i === 0) {
-		i++;
-		return window.swc.next(new window.swc.song({
-			name: 'Santiago Fdez',
-			artist: 'Santiago Fdez',
-			cover: 'https://yt3.ggpht.com/-YDbigEGhkM8/AAAAAAAAAAI/AAAAAAAAAAA/gBV9VwVmOxc/s900-c-k-no/photo.jpg',
-			duration: 'Santiago Fdez',
-			album: 'Santiago Fdez'
-		}));
-	} else {
-		i = 0;
-		return window.swc.next(new window.swc.song({
-			name: '2Santiago Fdez',
-			artist: '2Santiago Fdez',
-			cover: 'http://cdn.mos.musicradar.com/images/legacy/totalguitar/stone_temple_pilots_album_cover_Total_Guitar.JPG',
-			duration: '2Santiago Fdez',
-			album: '2Santiago Fdez'
-		}));
-	}
+	$.ajax('api/next').done(function(song){
+		window.swc.next(new window.swc.song(JSON.parse(song)));
+	});
 
 }
-window.back = function() {
+window.previous = function() {
 
-	if(j === 0) {
-		j++;
-		return window.swc.prev(new window.swc.song({
-			name: 'Kamionka',
-			artist: 'MKURLV',
-			cover: 'https://yt3.ggpht.com/-YDbigEGhkM8/AAAAAAAAAAI/AAAAAAAAAAA/gBV9VwVmOxc/s900-c-k-no/photo.jpg',
-			duration: '4:20',
-			album: 'Uniform Title'
-		}));
-	} else {
-		j = 0;
-		return window.swc.prev(new window.swc.song({
-			name: '2Santiago Fdez',
-			artist: '2Santiago Fdez',
-			cover: 'http://cdn.mos.musicradar.com/images/legacy/totalguitar/stone_temple_pilots_album_cover_Total_Guitar.JPG',
-			duration: '2Santiago Fdez',
-			album: '2Santiago Fdez'
-		}));
-	}
+	$.ajax('api/previous').done(function(song){
+		window.swc.next(new window.swc.song(JSON.parse(song)));
+	});
 
 }
 window.play = window.swc.play;

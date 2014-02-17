@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template
 import spotify
 
@@ -11,7 +12,7 @@ def homeHandler():
 
 
 
-@app.route('/api/a')
+@app.route('/api/previous')
 def previousHandler():
 	spotify.pause()
 	spotify.previous()
@@ -21,21 +22,21 @@ def previousHandler():
 
 
 
-@app.route('/api/r')
+@app.route('/api/play')
 def playHandler():
 	spotify.play()
 	return spotify.currentTrack()
 
 
 
-@app.route('/api/p')
+@app.route('/api/pause')
 def pauseHandler():
 	spotify.pause()
 	return spotify.currentTrack()
 
 
 
-@app.route('/api/s')
+@app.route('/api/next')
 def nextHandler():
 	spotify.pause()
 	spotify.next()
@@ -45,7 +46,7 @@ def nextHandler():
 
 
 
-@app.route('/api/c')
+@app.route('/api/current')
 def currentHandler():
 	return spotify.currentTrack()
 
